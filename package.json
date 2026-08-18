@@ -1,8 +1,6 @@
 {
-  "name": "mic-pulse",
-  "version": "0.2.0",
-  "private": true,
-  "scripts": {"dev":"next dev","build":"next build","start":"next start","lint":"next lint"},
-  "dependencies": {"@react-three/fiber":"latest","gsap":"latest","lenis":"latest","lucide-react":"latest","next":"latest","react":"latest","react-dom":"latest","three":"latest"},
-  "devDependencies": {"@types/node":"latest","@types/react":"latest","@types/react-dom":"latest","@types/three":"latest","autoprefixer":"latest","postcss":"latest","tailwindcss":"latest","typescript":"latest"}
+  "name":"mic-pulse","version":"0.3.0","private":true,
+  "scripts":{"dev":"next dev","build":"next build","start":"next start","lint":"next lint"},
+  "dependencies":{"@react-three/fiber":"latest","@supabase/ssr":"latest","@supabase/supabase-js":"latest","gsap":"latest","lenis":"latest","lucide-react":"latest","next":"latest","react":"latest","react-dom":"latest","three":"latest","zod":"latest"},
+  "devDependencies":{"@types/node":"latest","@types/react":"latest","@types/react-dom":"latest","@types/three":"latest","autoprefixer":"latest","postcss":"latest","tailwindcss":"latest","typescript":"latest"}
 }
