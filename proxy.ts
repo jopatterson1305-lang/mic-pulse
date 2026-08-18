@@ -1,17 +1,17 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { getSupabaseConfig } from "@/lib/supabase-config";
 
 export async function proxy(request: NextRequest) {
   if (!request.nextUrl.pathname.startsWith("/admin") || request.nextUrl.pathname === "/admin/login") {
     return NextResponse.next();
   }
 
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) return NextResponse.next();
+  const config = getSupabaseConfig();
+  if (!config) return NextResponse.next();
 
   let response = NextResponse.next({ request });
-  const supabase = createServerClient(url, key, {
+  const supabase = createServerClient(config.url, config.key, {
     cookies: {
       getAll: () => request.cookies.getAll(),
       setAll(values) {
