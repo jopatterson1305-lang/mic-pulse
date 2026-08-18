@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --mic-bg: #070b12;
+  --mic-surface: #0c121c;
+  --mic-text: #f4f7fb;
+  --mic-muted: #8b98aa;
+  --mic-blue: #2f7cff;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--mic-bg); scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--mic-bg);
+  color: var(--mic-text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--mic-blue); color: white; }
+
+.mic-container {
+  width: min(1200px, calc(100% - 40px));
+  margin-inline: auto;
+}
