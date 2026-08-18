@@ -1,0 +1,11 @@
+"use client";
+
+import { FormEvent, useState } from "react";
+import { createClient } from "@/lib/supabase";
+
+export default function NewArticle() {
+  const [title,setTitle]=useState(""); const [slug,setSlug]=useState(""); const [category,setCategory]=useState("Business"); const [excerpt,setExcerpt]=useState(""); const [content,setContent]=useState(""); const [published,setPublished]=useState(false); const [status,setStatus]=useState("");
+  function makeSlug(value:string){return value.toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
+  async function submit(e:FormEvent){e.preventDefault();setStatus("Saving…");const supabase=createClient();const {data:{user}}=await supabase.auth.getUser();if(!user){setStatus("Please sign in again.");return}const {error}=await supabase.from("articles").insert({title,slug:slug||makeSlug(title),category,excerpt,content,published,published_at:published?new Date().toISOString():null,author_id:user.id});setStatus(error?error.message:"Saved. Redirecting…");if(!error)window.location.href="/admin"}
+  return <main className="admin-shell"><form className="admin-card admin-form wide" onSubmit={submit}><p className="eyebrow">CONTENT STUDIO</p><h1>New article</h1><label>Title<input required value={title} onChange={e=>{setTitle(e.target.value);if(!slug)setSlug(makeSlug(e.target.value))}} /></label><label>Slug<input required value={slug} onChange={e=>setSlug(e.target.value)} /></label><label>Category<select value={category} onChange={e=>setCategory(e.target.value)}><option>Business</option><option>Finance</option><option>Technology</option><option>AI</option><option>Startups</option><option>Opportunities</option></select></label><label>Excerpt<textarea value={excerpt} onChange={e=>setExcerpt(e.target.value)} /></label><label>Content<textarea className="content-editor" required value={content} onChange={e=>setContent(e.target.value)} /></label><label className="checkbox"><input type="checkbox" checked={published} onChange={e=>setPublished(e.target.checked)} /> Publish immediately</label>{status&&<p>{status}</p>}<div className="admin-row"><a href="/admin">Cancel</a><button className="admin-button">Save article</button></div></form></main>;
+}
