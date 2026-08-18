@@ -1,0 +1,3 @@
+import { SimpleResourceManager } from "@/components/admin/SimpleResourceManager";
+
+export default function StartupsAdminPage() { return <SimpleResourceManager table="startups" title="Startups" eyebrow="DIRECTORY / STARTUPS" description="Manage startups, stages and the companies building the digital economy." fields={[{ key: "name", label: "Name" }, { key: "slug", label: "Slug" }, { key: "description", label: "Description", type: "textarea" }, { key: "logo_url", label: "Logo URL", type: "url" }, { key: "website", label: "Website", type: "url" }, { key: "industry", label: "Industry" }, { key: "country", label: "Country" }, { key: "founded_year", label: "Founded year", type: "number" }, { key: "stage", label: "Funding stage" }]} />; }

@@ -67,3 +67,11 @@ export async function getPublishedEvents() {
   if (error) throw error;
   return (data ?? []) as Event[];
 }
+
+export async function getPublishedRecord(table: "companies" | "startups" | "founders" | "market_updates" | "pages", slug: string) {
+  const supabase = await createServerSupabaseClient();
+  if (!supabase) return null;
+  const { data, error } = await supabase.from(table).select("*").eq("slug", slug).eq("published", true).maybeSingle();
+  if (error) throw error;
+  return data;
+}

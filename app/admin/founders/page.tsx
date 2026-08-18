@@ -1,0 +1,3 @@
+import { SimpleResourceManager } from "@/components/admin/SimpleResourceManager";
+
+export default function FoundersAdminPage() { return <SimpleResourceManager table="founders" title="Founders" eyebrow="DIRECTORY / FOUNDERS" description="Manage the people, stories and companies moving East Africa forward." fields={[{ key: "name", label: "Name" }, { key: "slug", label: "Slug" }, { key: "bio", label: "Bio", type: "textarea" }, { key: "photo_url", label: "Profile image URL", type: "url" }, { key: "role", label: "Role" }, { key: "location", label: "Location" }, { key: "website", label: "Website", type: "url" }, { key: "social_links", label: "Social links JSON", type: "textarea" }]} />; }

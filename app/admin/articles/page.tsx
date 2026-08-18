@@ -1,0 +1,12 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import { createClient } from "@/lib/supabase";
+
+export default function ArticlesAdminPage() {
+  const [articles, setArticles] = useState<Array<{ id: string; title: string; slug: string; category: string; published: boolean; created_at: string }>>([]);
+  const [query, setQuery] = useState(""); const [category, setCategory] = useState("All"); const [loading, setLoading] = useState(true); const [error, setError] = useState("");
+  useEffect(() => { void (async () => { const { data, error: loadError } = await createClient().from("articles").select("id,title,slug,category,published,created_at").order("created_at", { ascending: false }); setArticles(data ?? []); if (loadError) setError(loadError.message); setLoading(false); })(); }, []);
+  const filtered = useMemo(() => articles.filter(article => `${article.title} ${article.slug}`.toLowerCase().includes(query.toLowerCase()) && (category === "All" || article.category === category)), [articles, category, query]);
+  return <main className="admin-shell"><header className="admin-header"><div><p className="eyebrow">CONTENT / ARTICLES</p><h1>Articles</h1><p>Search, edit, publish and manage the MIC editorial archive.</p></div><a className="admin-button" href="/admin/articles/new">New article ↗</a></header><section className="admin-card"><div className="admin-toolbar"><input aria-label="Search articles" placeholder="Search articles…" value={query} onChange={event => setQuery(event.target.value)} /><select aria-label="Filter by category" value={category} onChange={event => setCategory(event.target.value)}><option>All</option><option>Business</option><option>Finance</option><option>Technology</option><option>AI</option><option>Startups</option><option>Opportunities</option></select></div>{error && <p className="admin-error">{error}</p>}{loading ? <p>Loading articles…</p> : filtered.length === 0 ? <div className="empty-state"><h2>No matching articles.</h2><p>Try another search or create a new story.</p></div> : <div className="admin-list">{filtered.map(article => <a className="admin-list-item" key={article.id} href={`/admin/articles/${article.id}/edit`}><div><strong>{article.title}</strong><span>{article.category} · /articles/{article.slug}</span></div><span className={`status-badge ${article.published ? "published" : "draft"}`}>{article.published ? "Published" : "Draft"}</span></a>)}</div>}</section></main>;
+}

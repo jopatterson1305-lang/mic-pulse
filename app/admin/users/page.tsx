@@ -1,0 +1,5 @@
+import { requireAdmin } from "@/lib/auth";
+
+export default async function UsersAdminPage() {
+  const admin = await requireAdmin();
+  if (!admin) return <main className="admin-shell"><div className="admin-card"><h1>Admin access required</h1><p>Only administrators can manage users and roles.</p></div></main>; return <main className="admin-shell"><header className="admin-header"><div><p className="eyebrow">SYSTEM / USERS</p><h1>Users & roles</h1><p>Admin and editor access is governed by Supabase Auth plus the profiles role field.</p></div></header><section className="admin-card"><h2>Role policy</h2><div className="admin-list"><div className="admin-list-item"><div><strong>Admin</strong><span>Full content, user and settings access.</span></div></div><div className="admin-list-item"><div><strong>Editor</strong><span>Content publishing access; no user or security configuration access.</span></div></div></div><p className="section-lede">Create Auth users in Supabase, then assign the `admin` or `editor` role in `public.profiles`. RLS remains the source of truth.</p></section></main>; }

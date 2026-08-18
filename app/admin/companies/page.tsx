@@ -1,0 +1,3 @@
+import { SimpleResourceManager } from "@/components/admin/SimpleResourceManager";
+
+export default function CompaniesAdminPage() { return <SimpleResourceManager table="companies" title="Companies" eyebrow="DIRECTORY / COMPANIES" description="Manage published company profiles and the businesses shaping East Africa." fields={[{ key: "name", label: "Name" }, { key: "slug", label: "Slug" }, { key: "description", label: "Description", type: "textarea" }, { key: "logo_url", label: "Logo URL", type: "url" }, { key: "website", label: "Website", type: "url" }, { key: "industry", label: "Industry" }, { key: "country", label: "Country" }, { key: "founded_year", label: "Founded year", type: "number" }]} />; }

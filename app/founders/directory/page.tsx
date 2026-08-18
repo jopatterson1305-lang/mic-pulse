@@ -1,0 +1,5 @@
+import Link from "next/link";
+import { createServerSupabaseClient } from "@/lib/supabase-server";
+
+export const dynamic = "force-dynamic";
+export default async function FoundersDirectoryPage() { const supabase = await createServerSupabaseClient(); const { data } = supabase ? await supabase.from("founders").select("id,name,slug,bio,role,location").eq("published", true).order("name") : { data: [] }; return <main className="content-shell"><Link className="brand-mark" href="/">MIC<span>•</span></Link><header className="content-header"><p className="eyebrow">DIRECTORY / FOUNDERS</p><h1 className="display display-lg">The people<br /><span>moving East Africa.</span></h1></header><section className="content-grid">{(data ?? []).map(founder => <article className="content-card" key={founder.id}><p className="eyebrow">{founder.role ?? founder.location ?? "FOUNDER"}</p><h2><Link href={`/founders/${founder.slug}`}>{founder.name}</Link></h2><p>{founder.bio}</p><Link className="text-link" href={`/founders/${founder.slug}`}>View profile ↗</Link></article>)}</section></main>; }
