@@ -10,9 +10,8 @@ export default function AdminPage() {
   const [sessionEmail, setSessionEmail] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const supabase = createClient();
-
   async function load() {
+    const supabase = createClient();
     setLoading(true);
     setError("");
     const { data: { user } } = await supabase.auth.getUser();
@@ -26,6 +25,7 @@ export default function AdminPage() {
   useEffect(() => { void load(); }, []);
 
   async function signOut() {
+    const supabase = createClient();
     await supabase.auth.signOut();
     window.location.reload();
   }
