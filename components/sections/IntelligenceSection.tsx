@@ -1,8 +1,5 @@
-export function IntelligenceSection() {
-  return (
-    <section id="intelligence" className="mic-container py-32">
-      <p className="text-sm uppercase tracking-[0.25em] text-mic-blue">MIC Intelligence</p>
-      <h2 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight md:text-6xl">Know what&apos;s happening. See where the opportunity is.</h2>
-    </section>
-  );
-}
+import { Reveal } from "@/components/motion/Reveal";
+
+const pillars = [["01","BUSINESS","Companies, founders and the forces shaping East African markets."],["02","TECHNOLOGY","AI, fintech and the digital economy — without the noise."],["03","OPPORTUNITY","Funding, events, scholarships and openings worth knowing about."]];
+
+export function IntelligenceSection(){return <section className="section" id="intelligence"><div className="mic-container"><Reveal><p className="eyebrow">01 / MIC INTELLIGENCE</p><h2 className="display display-md">The signal for<br /><span>what&apos;s next.</span></h2><p className="section-lede">MIC turns business, technology, finance and opportunity into clear intelligence for East Africa&apos;s next generation of builders.</p></Reveal><div className="feature-grid">{pillars.map(([n,t,d])=><Reveal className="feature-card" key={n}><span className="card-index">{n}</span><h3>{t}</h3><p>{d}</p><span className="arrow">↗</span></Reveal>)}</div></div></section>}
