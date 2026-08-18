@@ -14,7 +14,8 @@ export default function AdminLogin() {
     const supabase = createClient();
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) { setError(error.message); setBusy(false); return; }
-    window.location.href = "/admin";
+    const next = new URLSearchParams(window.location.search).get("next");
+    window.location.href = next?.startsWith("/admin") ? next : "/admin";
   }
 
   return <main className="admin-shell admin-centered"><form className="admin-card admin-form" onSubmit={submit}><p className="eyebrow">MIC PULSE</p><h1>Admin sign in</h1><p>Manage stories, opportunities and events from one command center.</p><label>Email<input type="email" required value={email} onChange={e => setEmail(e.target.value)} /></label><label>Password<input type="password" required value={password} onChange={e => setPassword(e.target.value)} /></label>{error && <p className="admin-error">{error}</p>}<button className="admin-button" disabled={busy}>{busy ? "Signing in…" : "Sign in"}</button></form></main>;
