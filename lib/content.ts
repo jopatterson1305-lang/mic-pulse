@@ -17,11 +17,14 @@ export type Article = {
   seo_description?: string | null;
   tags?: string[] | null;
 };
-export type Opportunity = { id: string; title: string; description: string | null; type: string; organization: string | null; url: string | null; deadline: string | null; published: boolean; slug?: string | null; location?: string | null; image_url?: string | null };
-export type Event = { id: string; title: string; description: string | null; location: string | null; starts_at: string | null; end_at?: string | null; url: string | null; registration_url?: string | null; published: boolean; slug?: string | null; venue?: string | null; image_url?: string | null };
+export type Opportunity = { id: string; title: string; description: string | null; type: string; organization: string | null; url: string | null; deadline: string | null; published: boolean; location?: string | null; image_url?: string | null };
+export type Event = { id: string; title: string; description: string | null; location: string | null; starts_at: string | null; end_at?: string | null; url: string | null; registration_url?: string | null; published: boolean; venue?: string | null; image_url?: string | null };
 export type SearchResult = { id: string; title: string; slug: string; excerpt: string | null; kind: "article" | "company" | "startup" | "founder" | "event" | "opportunity"; href: string; category?: string | null };
 
 async function getDb() { return createServerSupabaseClient(); }
+
+const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+function isUuid(value: string) { return uuidPattern.test(value); }
 
 export async function getPublishedArticles(category?: string) {
   const supabase = await getDb(); if (!supabase) return [] as Article[];
@@ -32,9 +35,9 @@ export async function getPublishedArticles(category?: string) {
 export async function getPublishedArticle(slug: string) { const supabase = await getDb(); if (!supabase) return null; const { data, error } = await supabase.from("articles").select("*").eq("slug", slug).eq("published", true).maybeSingle(); if (error) throw error; return data as Article | null; }
 export async function getPublishedArticleById(id: string) { const supabase = await getDb(); if (!supabase) return null; const { data, error } = await supabase.from("articles").select("*").eq("id", id).eq("published", true).maybeSingle(); if (error) throw error; return data as Article | null; }
 export async function getPublishedOpportunities() { const supabase = await getDb(); if (!supabase) return [] as Opportunity[]; const { data, error } = await supabase.from("opportunities").select("*").eq("published", true).order("deadline", { ascending: true }).limit(60); if (error) throw error; return (data ?? []) as Opportunity[]; }
-export async function getPublishedOpportunity(slug: string) { const supabase = await getDb(); if (!supabase) return null; const { data, error } = await supabase.from("opportunities").select("*").eq("slug", slug).eq("published", true).maybeSingle(); if (error) throw error; return data as Opportunity | null; }
+export async function getPublishedOpportunity(id: string) { if (!isUuid(id)) return null; const supabase = await getDb(); if (!supabase) return null; const { data, error } = await supabase.from("opportunities").select("*").eq("id", id).eq("published", true).maybeSingle(); if (error) throw error; return data as Opportunity | null; }
 export async function getPublishedEvents() { const supabase = await getDb(); if (!supabase) return [] as Event[]; const { data, error } = await supabase.from("events").select("*").eq("published", true).order("starts_at", { ascending: true }).limit(60); if (error) throw error; return (data ?? []) as Event[]; }
-export async function getPublishedEvent(slug: string) { const supabase = await getDb(); if (!supabase) return null; const { data, error } = await supabase.from("events").select("*").eq("slug", slug).eq("published", true).maybeSingle(); if (error) throw error; return data as Event | null; }
+export async function getPublishedEvent(id: string) { if (!isUuid(id)) return null; const supabase = await getDb(); if (!supabase) return null; const { data, error } = await supabase.from("events").select("*").eq("id", id).eq("published", true).maybeSingle(); if (error) throw error; return data as Event | null; }
 export async function getPublishedRecord(table: "companies" | "startups" | "founders" | "market_updates" | "pages", slug: string) { const supabase = await getDb(); if (!supabase) return null; const { data, error } = await supabase.from(table).select("*").eq("slug", slug).eq("published", true).maybeSingle(); if (error) throw error; return data; }
 
 export async function searchPublishedContent(term: string) {

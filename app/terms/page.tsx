@@ -1,0 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms — MIC Pulse",
+  description: "Terms governing access to the MIC Pulse platform and its published content.",
+};
+
+export default function TermsPage() {
+  return <main className="content-shell"><article className="article-shell article-content"><p className="eyebrow">MIC PULSE / LEGAL</p><h1 className="display display-lg">Terms of<br /><span>participation.</span></h1><p className="article-excerpt">MIC Pulse is a platform for business, technology, finance, founder, and opportunity reporting across East Africa.</p><section className="article-body"><h2>Using MIC Pulse</h2><p>You may browse public content and create a reader account to use account-specific features. You are responsible for providing accurate information and for keeping your account credentials confidential.</p><h2>Editorial content</h2><p>Published content is provided for general information. It is not investment, legal, tax, employment, or professional advice. Verify opportunities, events, and external listings with their original organizers before acting on them.</p><h2>Accounts and submissions</h2><p>Do not use the platform to submit unlawful, harmful, misleading, infringing, or confidential material that you do not have the right to share. MIC Pulse may review, remove, or decline submissions that do not fit the platform’s purpose or safety requirements.</p><h2>External links</h2><p>Some content links to third-party websites, registrations, or organizations. Those destinations have their own terms and privacy practices. MIC Pulse is not responsible for their content, availability, or conduct.</p><h2>Availability and changes</h2><p>We aim to keep the platform accurate and available, but do not guarantee uninterrupted service or that every listing remains current. Features, content, and these terms may change as the platform develops.</p><h2>Contact</h2><p>Questions about these terms can be sent to <a href="mailto:hello@micpulse.co.tz">hello@micpulse.co.tz</a>.</p><p className="muted">Effective date: 24 August 2026</p></section></article></main>;
+}
