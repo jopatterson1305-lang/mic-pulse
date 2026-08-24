@@ -44,17 +44,17 @@ export async function searchPublishedContent(term: string) {
   const articleQuery = await supabase.from("articles").select("id,title,slug,excerpt,category").eq("published", true).or(`title.ilike.${needle},excerpt.ilike.${needle},content.ilike.${needle}`).order("published_at", { ascending: false }).limit(20);
   if (articleQuery.error) throw articleQuery.error;
   for (const row of articleQuery.data ?? []) results.push({ id: row.id, title: row.title, slug: row.slug, excerpt: row.excerpt, category: row.category, kind: "article", href: `/articles/${row.slug}` });
-  const sources: Array<{ table: "companies" | "startups" | "founders" | "events" | "opportunities"; kind: SearchResult["kind"]; prefix: string; titleColumn: "name" | "title"; select: string; searchColumn: "name" | "title"; descriptionColumn: "description" | "bio" | "stage" }> = [
-    { table: "companies", kind: "company", prefix: "/companies/", titleColumn: "name", select: "id,name,slug,description", searchColumn: "name", descriptionColumn: "description" },
-    { table: "startups", kind: "startup", prefix: "/startups/", titleColumn: "name", select: "id,name,slug,stage", searchColumn: "name", descriptionColumn: "stage" },
-    { table: "founders", kind: "founder", prefix: "/founders/", titleColumn: "name", select: "id,name,slug,bio", searchColumn: "name", descriptionColumn: "bio" },
-    { table: "events", kind: "event", prefix: "/events/", titleColumn: "title", select: "id,title,slug,description", searchColumn: "title", descriptionColumn: "description" },
-    { table: "opportunities", kind: "opportunity", prefix: "/opportunities/", titleColumn: "title", select: "id,title,slug,description", searchColumn: "title", descriptionColumn: "description" },
+  const sources: Array<{ table: "companies" | "startups" | "founders" | "events" | "opportunities"; kind: SearchResult["kind"]; prefix: string; titleColumn: "name" | "title"; select: string; searchColumn: "name" | "title"; descriptionColumn: "description" | "bio" | "stage"; needsSlug: boolean }> = [
+    { table: "companies", kind: "company", prefix: "/companies/", titleColumn: "name", select: "id,name,slug,description", searchColumn: "name", descriptionColumn: "description", needsSlug: true },
+    { table: "startups", kind: "startup", prefix: "/startups/", titleColumn: "name", select: "id,name,slug,stage", searchColumn: "name", descriptionColumn: "stage", needsSlug: true },
+    { table: "founders", kind: "founder", prefix: "/founders/", titleColumn: "name", select: "id,name,slug,bio", searchColumn: "name", descriptionColumn: "bio", needsSlug: true },
+    { table: "events", kind: "event", prefix: "/events", titleColumn: "title", select: "id,title,description", searchColumn: "title", descriptionColumn: "description", needsSlug: false },
+    { table: "opportunities", kind: "opportunity", prefix: "/opportunities/", titleColumn: "title", select: "id,title,slug,description", searchColumn: "title", descriptionColumn: "description", needsSlug: true },
   ];
   for (const source of sources) {
     const query = await supabase.from(source.table).select(source.select).eq("published", true).or(`${source.searchColumn}.ilike.${needle},${source.descriptionColumn}.ilike.${needle}`).limit(12);
     if (query.error) throw query.error;
-    for (const rawRow of query.data ?? []) { const row = rawRow as unknown as Record<string, unknown>; const id = typeof row.id === "string" ? row.id : ""; const slug = typeof row.slug === "string" ? row.slug : ""; const title = typeof row[source.titleColumn] === "string" ? row[source.titleColumn] as string : ""; const excerpt = typeof row[source.descriptionColumn] === "string" ? row[source.descriptionColumn] as string : null; if (id && slug && title) results.push({ id, title, slug, excerpt, kind: source.kind, href: `${source.prefix}${slug}` }); }
+    for (const rawRow of query.data ?? []) { const row = rawRow as unknown as Record<string, unknown>; const id = typeof row.id === "string" ? row.id : ""; const slug = typeof row.slug === "string" ? row.slug : ""; const title = typeof row[source.titleColumn] === "string" ? row[source.titleColumn] as string : ""; const excerpt = typeof row[source.descriptionColumn] === "string" ? row[source.descriptionColumn] as string : null; if (id && title && (!source.needsSlug || slug)) results.push({ id, title, slug: slug || id, excerpt, kind: source.kind, href: source.needsSlug ? `${source.prefix}${slug}` : source.prefix }); }
   }
   return results;
 }
