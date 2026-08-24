@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase";
 type Field = { key: string; label: string; type?: "text" | "url" | "number" | "textarea" };
 type Row = Record<string, string | boolean | null> & { id: string; published?: boolean };
 
-export function SimpleResourceManager({ table, title, eyebrow, description, fields }: { table: "companies" | "startups" | "founders" | "market_updates" | "pages"; title: string; eyebrow: string; description: string; fields: Field[] }) {
+export function SimpleResourceManager({ table, title, eyebrow, description, fields }: { table: "companies" | "startups" | "founders" | "market_updates" | "pages" | "community_stories"; title: string; eyebrow: string; description: string; fields: Field[] }) {
   const [rows, setRows] = useState<Row[]>([]); const [query, setQuery] = useState(""); const [editing, setEditing] = useState<Row | null>(null); const [busy, setBusy] = useState(false); const [error, setError] = useState("");
   async function load() { setBusy(true); const { data, error: loadError } = await createClient().from(table).select("*").order("created_at", { ascending: false }); setRows((data ?? []) as Row[]); if (loadError) setError(loadError.message); setBusy(false); }
   useEffect(() => { void load(); }, []);

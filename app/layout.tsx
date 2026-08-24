@@ -3,9 +3,9 @@ import "../styles/globals.css";
 import { SiteShell } from "@/components/site/SiteShell";
 
 export const metadata: Metadata = {
-  title: "MIC Pulse — East African Business & Technology Intelligence",
+  title: "MIC Pulse — Motivate, Innovate, Create",
   description:
-    "Business, technology, finance and opportunity intelligence for the people building East Africa's future.",
+    "Business, technology, finance and opportunity reporting for the people building East Africa's future.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

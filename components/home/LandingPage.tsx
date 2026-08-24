@@ -7,6 +7,7 @@ import { FounderSection } from "@/components/sections/FounderSection";
 import { FounderServices } from "@/components/sections/FounderServices";
 import { Newsletter } from "@/components/sections/Newsletter";
 import { SlideRail } from "@/components/motion/SlideRail";
+import { CommunityShowcase } from "@/components/sections/CommunityShowcase";
 
 const darEsSalaamImage = "/media/dar-es-salaam-night.jpg";
 
@@ -27,12 +28,12 @@ export function LandingPage() {
       <div className="reference-hero-orbit reference-hero-orbit-one" />
       <div className="reference-hero-orbit reference-hero-orbit-two" />
       <div className="reference-container reference-hero-inner">
-        <Reveal className="reference-hero-copy"><p className="eyebrow">MIC PULSE / EAST AFRICA</p><h1 className="reference-title">The signal<br /><span>behind the region.</span></h1><p className="reference-lede">Business, technology, finance and opportunity intelligence for the people building East Africa&apos;s next chapter.</p><div className="reference-actions"><a className="reference-primary magnetic-button" href="#pulse">Explore MIC <span>↓</span></a><Link className="reference-secondary glass-surface magnetic-button" href="/search">Search the archive <span>↗</span></Link></div></Reveal>
+        <Reveal className="reference-hero-copy"><p className="eyebrow">MIC PULSE / EAST AFRICA</p><h1 className="reference-title">The signal<br /><span>behind the region.</span></h1><p className="reference-lede">Business, technology, finance and opportunity reporting for the people building East Africa&apos;s next chapter.</p><div className="reference-actions"><a className="reference-primary magnetic-button" href="#pulse">Explore MIC <span>↓</span></a><Link className="reference-secondary glass-surface magnetic-button" href="/search">Search the archive <span>↗</span></Link></div></Reveal>
         <Reveal className="reference-hero-panel glass-surface"><div className="reference-panel-top"><span>LIVE SIGNAL</span><strong>01</strong></div><p>Context for the companies, founders, markets and opportunities moving East Africa forward.</p><div className="reference-panel-rule" /><div className="reference-panel-meta"><span>Dar es Salaam</span><span>06:24 EAT</span></div></Reveal>
       </div>
     </section>
 
-    <section className="reference-intro" id="pulse"><div className="reference-container reference-intro-grid"><Reveal><p className="eyebrow">01 / THE PULSE</p><h2 className="reference-heading">Make sense<br /><span>of what moves.</span></h2></Reveal><Reveal className="reference-intro-panel glass-surface"><p>MIC Pulse is an editorial intelligence platform for the people building, funding and understanding East Africa&apos;s future.</p><div className="reference-panel-links"><Link href="/articles">Read the latest stories <span>↗</span></Link><Link href="/about">About MIC Pulse <span>↗</span></Link></div></Reveal></div></section>
+    <section className="reference-intro" id="pulse"><div className="reference-container reference-intro-grid"><Reveal><p className="eyebrow">01 / THE PULSE</p><h2 className="reference-heading">Make sense<br /><span>of what moves.</span></h2></Reveal><Reveal className="reference-intro-panel glass-surface"><p>MIC Pulse is an editorial platform for the people building, funding and understanding East Africa&apos;s future.</p><div className="reference-panel-links"><Link href="/articles">Read the latest stories <span>↗</span></Link><Link href="/about">About MIC Pulse <span>↗</span></Link></div></Reveal></div></section>
 
     <section className="reference-mission"><div className="reference-container"><Reveal className="reference-section-head"><div><p className="eyebrow">02 / ABOUT MIC</p><h2 className="reference-heading">Motivate.<br /><span>Innovate. Create.</span></h2></div><p>MIC exists to give ambitious people the clarity, confidence and connections to build what matters in Tanzania and beyond.</p></Reveal><div className="reference-mission-grid"><Reveal className="reference-mission-statement glass-surface"><p>We motivate ambitious people, highlight innovators and create the conditions for meaningful ideas and businesses to grow.</p><Link href="/about">Read the MIC story <span>↗</span></Link></Reveal><div className="reference-mission-list"><Reveal><span>01</span><strong>Motivate</strong><p>Turn ambition into movement.</p></Reveal><Reveal><span>02</span><strong>Innovate</strong><p>Connect people to better possibilities.</p></Reveal><Reveal><span>03</span><strong>Create</strong><p>Build opportunities that last.</p></Reveal></div></div></div></section>
 
@@ -43,6 +44,7 @@ export function LandingPage() {
     <BusinessSection />
     <MarketPulse />
     <OpportunitiesSection />
+    <CommunityShowcase />
 
     <section className="reference-ecosystem"><div className="reference-container"><Reveal className="reference-section-head"><div><p className="eyebrow">06 / JOIN MIC</p><h2 className="reference-heading">Build closer<br /><span>to the signal.</span></h2></div><p>MIC is for founders, innovators, investors, builders and ambitious young people who want to move with the ecosystem, not around it.</p></Reveal><div className="reference-ecosystem-grid">{ecosystemReasons.map(([title, text], index) => <Reveal key={title} className="reference-ecosystem-card glass-surface"><span className="reference-card-index">0{index + 1}</span><strong>{title}</strong><p>{text}</p></Reveal>)}</div><Reveal className="reference-ecosystem-cta"><p>Come for the signal. Stay for what you can build together.</p><Link className="reference-primary magnetic-button" href="/#newsletter">Join the ecosystem <span>↗</span></Link></Reveal></div></section>
 

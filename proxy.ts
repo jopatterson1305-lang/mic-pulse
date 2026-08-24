@@ -30,6 +30,17 @@ export async function proxy(request: NextRequest) {
     loginUrl.searchParams.set("next", `${pathname}${request.nextUrl.search}`);
     return NextResponse.redirect(loginUrl);
   }
+  if (adminProtected) {
+    const { data: profile, error: profileError } = await supabase.from("profiles").select("role").eq("id", user.id).maybeSingle();
+    const allowed = !profileError && ["owner", "admin", "editor"].includes(profile?.role ?? "");
+    if (!allowed) {
+      const loginUrl = request.nextUrl.clone();
+      loginUrl.pathname = "/admin/login";
+      loginUrl.search = "";
+      loginUrl.searchParams.set("error", "unauthorized");
+      return NextResponse.redirect(loginUrl);
+    }
+  }
   return response;
 }
 

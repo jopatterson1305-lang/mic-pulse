@@ -1,0 +1,3 @@
+import { SimpleResourceManager } from "@/components/admin/SimpleResourceManager";
+
+export default function AdminCommunityPage() { return <SimpleResourceManager table="community_stories" title="Community stories" eyebrow="MIC ADMIN / COMMUNITY" description="Publish verified stories from Tanzanian startups, founders, and innovators." fields={[{ key: "title", label: "Story title" }, { key: "organization", label: "Organization" }, { key: "founder_name", label: "Founder or lead" }, { key: "location", label: "Location" }, { key: "website", label: "Website", type: "url" }, { key: "summary", label: "Summary", type: "textarea" }]} />; }
