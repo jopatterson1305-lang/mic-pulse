@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
+import { SiteShell } from "@/components/site/SiteShell";
 
 export const metadata: Metadata = {
   title: "MIC Pulse — East African Business & Technology Intelligence",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body><SiteShell>{children}</SiteShell></body>
     </html>
   );
 }

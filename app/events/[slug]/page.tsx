@@ -1,0 +1,8 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { getPublishedEvent } from "@/lib/content";
+
+export const dynamic = "force-dynamic";
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const { slug } = await params; const item = await getPublishedEvent(slug); return item ? { title: `${item.title} — MIC Pulse`, description: item.description ?? undefined } : { title: "Event not found — MIC Pulse" }; }
+export default async function EventPage({ params }: { params: Promise<{ slug: string }> }) { const { slug } = await params; const item = await getPublishedEvent(slug); if (!item) notFound(); const when = item.starts_at ? new Date(item.starts_at).toLocaleString("en-TZ", { dateStyle: "long", timeStyle: "short" }) : "Date to be announced"; const until = item.end_at ? ` — ${new Date(item.end_at).toLocaleTimeString("en-TZ", { hour: "2-digit", minute: "2-digit" })}` : ""; const registration = item.registration_url ?? item.url; return <main className="content-shell"><article className="article-shell article-content"><Link className="text-link" href="/events">← Events</Link><p className="eyebrow">EVENTS / MIC PULSE</p><h1 className="display display-lg">{item.title}</h1><div className="story-meta"><span>{when}{until}</span><span>{item.venue ?? item.location ?? "East Africa"}</span></div><p className="article-excerpt">{item.description ?? "A published event from the MIC Pulse network."}</p>{registration && <a className="primary-button" href={registration} target="_blank" rel="noreferrer">Register or learn more ↗</a>}</article></main>; }

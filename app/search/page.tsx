@@ -1,0 +1,8 @@
+import type { Metadata } from "next";
+import { searchPublishedContent } from "@/lib/content";
+import { StoryList } from "@/components/editorial/StoryList";
+
+export const dynamic = "force-dynamic";
+export const metadata: Metadata = { title: "Search — MIC Pulse", description: "Search published intelligence across the MIC Pulse network." };
+type SearchParams = Promise<{ q?: string | string[] }>;
+export default async function SearchPage({ searchParams }: { searchParams: SearchParams }) { const params = await searchParams; const raw = Array.isArray(params.q) ? params.q[0] : params.q ?? ""; const query = raw.trim().slice(0, 120); const results = query ? await searchPublishedContent(query) : []; return <main className="search-shell"><div className="editorial-header"><p className="eyebrow">MIC PULSE / SEARCH</p><h1>Find the signal.</h1><p className="section-lede">Search published stories, companies, startups, founders, events, and opportunities across East Africa’s intelligence network.</p></div><form className="search-form" role="search" action="/search" method="get"><label className="sr-only" htmlFor="search-query">Search published content</label><input id="search-query" name="q" type="search" defaultValue={query} placeholder="Search by topic, organization, or person" autoComplete="off" /><button className="primary-button" type="submit">Search</button></form>{query && <p className="muted">{results.length} result{results.length === 1 ? "" : "s"} for “{query}”</p>}<StoryList items={results} empty={query ? "Try a wider topic or a different spelling." : "Enter a query to search the published MIC Pulse archive."} /></main>; }
