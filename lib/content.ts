@@ -44,9 +44,9 @@ export async function searchPublishedContent(term: string) {
   const articleQuery = await supabase.from("articles").select("id,title,slug,excerpt,category").eq("published", true).or(`title.ilike.${needle},excerpt.ilike.${needle},content.ilike.${needle}`).order("published_at", { ascending: false }).limit(20);
   if (articleQuery.error) throw articleQuery.error;
   for (const row of articleQuery.data ?? []) results.push({ id: row.id, title: row.title, slug: row.slug, excerpt: row.excerpt, category: row.category, kind: "article", href: `/articles/${row.slug}` });
-  const sources: Array<{ table: "companies" | "startups" | "founders" | "events" | "opportunities"; kind: SearchResult["kind"]; prefix: string; titleColumn: "name" | "title"; select: string; searchColumn: "name" | "title"; descriptionColumn: "description" | "bio" }> = [
+  const sources: Array<{ table: "companies" | "startups" | "founders" | "events" | "opportunities"; kind: SearchResult["kind"]; prefix: string; titleColumn: "name" | "title"; select: string; searchColumn: "name" | "title"; descriptionColumn: "description" | "bio" | "stage" }> = [
     { table: "companies", kind: "company", prefix: "/companies/", titleColumn: "name", select: "id,name,slug,description", searchColumn: "name", descriptionColumn: "description" },
-    { table: "startups", kind: "startup", prefix: "/startups/", titleColumn: "name", select: "id,name,slug,description", searchColumn: "name", descriptionColumn: "description" },
+    { table: "startups", kind: "startup", prefix: "/startups/", titleColumn: "name", select: "id,name,slug,stage", searchColumn: "name", descriptionColumn: "stage" },
     { table: "founders", kind: "founder", prefix: "/founders/", titleColumn: "name", select: "id,name,slug,bio", searchColumn: "name", descriptionColumn: "bio" },
     { table: "events", kind: "event", prefix: "/events/", titleColumn: "title", select: "id,title,slug,description", searchColumn: "title", descriptionColumn: "description" },
     { table: "opportunities", kind: "opportunity", prefix: "/opportunities/", titleColumn: "title", select: "id,title,slug,description", searchColumn: "title", descriptionColumn: "description" },
