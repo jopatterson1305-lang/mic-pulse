@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase";
 import { ThemeToggle } from "./ThemeToggle";
 
-const links = [["Intelligence", "/intelligence"], ["Business", "/business"], ["Technology", "/technology"], ["Markets", "/finance"], ["Opportunities", "/opportunities"], ["Founders", "/founders"]] as const;
+const links = [["Business", "/business"], ["Technology", "/technology"], ["Markets", "/finance"], ["Opportunities", "/opportunities"], ["Founders", "/founders"]] as const;
 
 export function GlobalHeader() {
   const pathname = usePathname(); const [open, setOpen] = useState(false); const [signedIn, setSignedIn] = useState(false);
