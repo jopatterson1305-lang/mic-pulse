@@ -6,6 +6,7 @@ import { OpportunitiesSection } from "@/components/sections/OpportunitiesSection
 import { FounderSection } from "@/components/sections/FounderSection";
 import { FounderServices } from "@/components/sections/FounderServices";
 import { Newsletter } from "@/components/sections/Newsletter";
+import { SlideRail } from "@/components/motion/SlideRail";
 
 const darEsSalaamImage = "/media/dar-es-salaam-night.jpg";
 
@@ -36,6 +37,8 @@ export function LandingPage() {
     <section className="reference-mission"><div className="reference-container"><Reveal className="reference-section-head"><div><p className="eyebrow">02 / ABOUT MIC</p><h2 className="reference-heading">Motivate.<br /><span>Innovate. Create.</span></h2></div><p>MIC exists to give ambitious people the clarity, confidence and connections to build what matters in Tanzania and beyond.</p></Reveal><div className="reference-mission-grid"><Reveal className="reference-mission-statement glass-surface"><p>We motivate ambitious people, highlight innovators and create the conditions for meaningful ideas and businesses to grow.</p><Link href="/about">Read the MIC story <span>↗</span></Link></Reveal><div className="reference-mission-list"><Reveal><span>01</span><strong>Motivate</strong><p>Turn ambition into movement.</p></Reveal><Reveal><span>02</span><strong>Innovate</strong><p>Connect people to better possibilities.</p></Reveal><Reveal><span>03</span><strong>Create</strong><p>Build opportunities that last.</p></Reveal></div></div></div></section>
 
     <section className="reference-data-section"><div className="reference-container"><Reveal className="reference-section-head"><div><p className="eyebrow">03 / THE PLATFORM</p><h2 className="reference-heading">One clear view<br /><span>of the signal.</span></h2></div><p>Less noise. Better context. A deliberately editorial way to understand the people, companies and systems shaping East Africa.</p></Reveal><div className="reference-data-grid"><Reveal className="reference-data-card reference-data-card-large glass-surface"><span className="reference-card-index">01</span><strong>Business</strong><p>Companies, founders and the decisions behind regional growth.</p><Link href="/business">Explore business <span>↗</span></Link></Reveal><Reveal className="reference-data-card glass-surface"><span className="reference-card-index">02</span><strong>Markets</strong><p>Signals, shifts and sourced market context.</p><Link href="/finance">Open markets <span>↗</span></Link></Reveal><Reveal className="reference-data-card glass-surface"><span className="reference-card-index">03</span><strong>Opportunities</strong><p>Funding, events and openings worth knowing.</p><Link href="/opportunities">Find an opening <span>↗</span></Link></Reveal></div></div></section>
+
+    <section className="reference-slide-section"><div className="reference-container"><Reveal className="reference-section-head"><div><p className="eyebrow">04 / THE MIC RAIL</p><h2 className="reference-heading">Move through<br /><span>the signal.</span></h2></div><p>Hover, tap or use the keyboard to move through the four views that keep MIC close to the people building Tanzania&apos;s next chapter.</p></Reveal><Reveal><SlideRail /></Reveal></div></section>
 
     <BusinessSection />
     <MarketPulse />
