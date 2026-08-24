@@ -49,7 +49,7 @@ export async function searchPublishedContent(term: string) {
     { table: "startups", kind: "startup", prefix: "/startups/", titleColumn: "name", select: "id,name,slug,stage", searchColumn: "name", descriptionColumn: "stage", needsSlug: true },
     { table: "founders", kind: "founder", prefix: "/founders/", titleColumn: "name", select: "id,name,slug,bio", searchColumn: "name", descriptionColumn: "bio", needsSlug: true },
     { table: "events", kind: "event", prefix: "/events", titleColumn: "title", select: "id,title,description", searchColumn: "title", descriptionColumn: "description", needsSlug: false },
-    { table: "opportunities", kind: "opportunity", prefix: "/opportunities/", titleColumn: "title", select: "id,title,slug,description", searchColumn: "title", descriptionColumn: "description", needsSlug: true },
+    { table: "opportunities", kind: "opportunity", prefix: "/opportunities", titleColumn: "title", select: "id,title,description", searchColumn: "title", descriptionColumn: "description", needsSlug: false },
   ];
   for (const source of sources) {
     const query = await supabase.from(source.table).select(source.select).eq("published", true).or(`${source.searchColumn}.ilike.${needle},${source.descriptionColumn}.ilike.${needle}`).limit(12);
