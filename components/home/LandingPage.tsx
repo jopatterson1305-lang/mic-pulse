@@ -7,40 +7,33 @@ import { FounderSection } from "@/components/sections/FounderSection";
 import { FounderServices } from "@/components/sections/FounderServices";
 import { Newsletter } from "@/components/sections/Newsletter";
 
-const media = {
-  bridge: "/media/tanzania-bridge.jpg",
-  business: "/media/dar-es-salaam-business-district.jpg",
-  night: "/media/dar-es-salaam-night.jpg",
-  askari: "/media/askari-monument.jpg",
-  kilimanjaro: "/media/kilimanjaro.jpg",
-  aerial: "/media/dar-es-salaam-aerial.jpg",
-  street: "/media/dar-es-salaam-street.jpg",
-};
+const darEsSalaamImage = "/media/dar-es-salaam-night.jpg";
 
 export function LandingPage() {
-  return <main className="landing-page">
-    <section className="landing-hero" id="top">
-      <img className="landing-hero-media" src={media.bridge} alt="Dar es Salaam skyline and bridge over the coast" fetchPriority="high" />
-      <div className="landing-hero-overlay" />
-      <div className="landing-hero-grid" />
-      <div className="landing-hero-content mic-container">
-        <Reveal><p className="eyebrow">MIC PULSE / EAST AFRICA</p><h1 className="landing-display">The signal<br /><span>behind the region.</span></h1><p className="landing-hero-lede">Business, technology, finance and opportunity intelligence for the people building East Africa&apos;s next chapter.</p><div className="landing-hero-actions"><a className="primary-button landing-button" href="#pulse">Explore MIC <span>↓</span></a><Link className="glass-button" href="/search">Search the archive <span>↗</span></Link></div></Reveal>
-        <Reveal className="landing-hero-rail"><div><span className="rail-kicker">LIVE INTELLIGENCE</span><strong>01</strong></div><p>Clear context for the companies, founders, markets and opportunities moving East Africa forward.</p></Reveal>
+  return <main className="landing-page landing-reference">
+    <section className="reference-hero" id="top">
+      <img className="reference-hero-image" src={darEsSalaamImage} alt="Dar es Salaam skyline at night" fetchPriority="high" />
+      <div className="reference-hero-shade" />
+      <div className="reference-hero-orbit reference-hero-orbit-one" />
+      <div className="reference-hero-orbit reference-hero-orbit-two" />
+      <div className="reference-container reference-hero-inner">
+        <Reveal className="reference-hero-copy"><p className="eyebrow">MIC PULSE / EAST AFRICA</p><h1 className="reference-title">The signal<br /><span>behind the region.</span></h1><p className="reference-lede">Business, technology, finance and opportunity intelligence for the people building East Africa&apos;s next chapter.</p><div className="reference-actions"><a className="reference-primary magnetic-button" href="#pulse">Explore MIC <span>↓</span></a><Link className="reference-secondary glass-surface magnetic-button" href="/search">Search the archive <span>↗</span></Link></div></Reveal>
+        <Reveal className="reference-hero-panel glass-surface"><div className="reference-panel-top"><span>LIVE SIGNAL</span><strong>01</strong></div><p>Context for the companies, founders, markets and opportunities moving East Africa forward.</p><div className="reference-panel-rule" /><div className="reference-panel-meta"><span>Dar es Salaam</span><span>06:24 EAT</span></div></Reveal>
       </div>
     </section>
 
-    <section className="landing-intro section" id="pulse"><div className="mic-container landing-intro-grid"><Reveal><p className="eyebrow">01 / THE PULSE</p><h2 className="display display-md">Make sense<br /><span>of what moves.</span></h2></Reveal><Reveal className="landing-intro-copy"><p>MIC Pulse is an editorial intelligence platform for the people building, funding and understanding East Africa&apos;s future.</p><div className="landing-link-row"><Link className="text-link" href="/articles">Read the latest stories ↗</Link><Link className="text-link" href="/about">About MIC Pulse ↗</Link></div></Reveal></div></section>
+    <section className="reference-intro" id="pulse"><div className="reference-container reference-intro-grid"><Reveal><p className="eyebrow">01 / THE PULSE</p><h2 className="reference-heading">Make sense<br /><span>of what moves.</span></h2></Reveal><Reveal className="reference-intro-panel glass-surface"><p>MIC Pulse is an editorial intelligence platform for the people building, funding and understanding East Africa&apos;s future.</p><div className="reference-panel-links"><Link href="/articles">Read the latest stories <span>↗</span></Link><Link href="/about">About MIC Pulse <span>↗</span></Link></div></Reveal></div></section>
 
-    <section className="landing-photo-band"><div className="mic-container landing-photo-grid"><Reveal className="photo-feature"><img src={media.business} alt="Modern business district in Dar es Salaam" loading="lazy" /><div className="photo-caption"><span>BUSINESS / DAR ES SALAAM</span><strong>Where capital, infrastructure and ambition meet.</strong></div></Reveal><Reveal className="photo-stack"><div className="photo-card"><img src={media.askari} alt="Askari Monument in Dar es Salaam" loading="lazy" /><span>REGION / MEMORY</span></div><div className="photo-card"><img src={media.street} alt="Dar es Salaam street with city buildings and a bus" loading="lazy" /><span>REGION / MOMENTUM</span></div></Reveal></div></section>
+    <section className="reference-data-section"><div className="reference-container"><Reveal className="reference-section-head"><div><p className="eyebrow">02 / THE PLATFORM</p><h2 className="reference-heading">One clear view<br /><span>of the signal.</span></h2></div><p>Less noise. Better context. A deliberately editorial way to understand the people, companies and systems shaping East Africa.</p></Reveal><div className="reference-data-grid"><Reveal className="reference-data-card reference-data-card-large glass-surface"><span className="reference-card-index">01</span><strong>Business</strong><p>Companies, founders and the decisions behind regional growth.</p><Link href="/business">Explore business <span>↗</span></Link></Reveal><Reveal className="reference-data-card glass-surface"><span className="reference-card-index">02</span><strong>Markets</strong><p>Signals, shifts and sourced market context.</p><Link href="/finance">Open markets <span>↗</span></Link></Reveal><Reveal className="reference-data-card glass-surface"><span className="reference-card-index">03</span><strong>Opportunities</strong><p>Funding, events and openings worth knowing.</p><Link href="/opportunities">Find an opening <span>↗</span></Link></Reveal></div></div></section>
 
     <BusinessSection />
-    <section className="landing-context section section-dark"><div className="mic-container landing-context-grid"><Reveal><div className="context-image-wrap"><img src={media.aerial} alt="Aerial view of Dar es Salaam buildings" loading="lazy" /><span className="image-label">THE CITY / IN MOTION</span></div></Reveal><Reveal><p className="eyebrow">03 / REGIONAL CONTEXT</p><h2 className="display display-md">Read the city<br /><span>behind the signal.</span></h2><p className="section-lede">From the street to the skyline, the region&apos;s next story is being built in public. We follow the decisions, systems and people shaping it.</p><Link className="text-link" href="/companies">Explore the company directory ↗</Link></Reveal></div></section>
     <MarketPulse />
     <OpportunitiesSection />
-    <section className="landing-night-panel"><img src={media.night} alt="Dar es Salaam skyline at night" loading="lazy" /><div className="landing-night-overlay" /><div className="mic-container landing-night-content"><Reveal><p className="eyebrow">05 / AFTER DARK</p><h2 className="display display-md">The region<br /><span>does not slow down.</span></h2><p className="section-lede">Follow the people and systems working after the headlines move on.</p><Link className="glass-button" href="/events">See what&apos;s happening <span>↗</span></Link></Reveal></div></section>
+
+    <section className="reference-interlude"><div className="reference-container reference-interlude-grid"><Reveal><p className="eyebrow">05 / THE REGION</p><h2 className="reference-heading">Designed for<br /><span>what comes next.</span></h2></Reveal><Reveal className="reference-orbit-panel glass-surface"><div className="orbit-lines"><span /><span /><span /></div><div className="reference-orbit-copy"><strong>East Africa / 01</strong><p>Build with better information. Move with clearer intent.</p><Link href="/founders">Meet the builders <span>↗</span></Link></div></Reveal></div></section>
+
     <FounderSection />
     <FounderServices />
-    <section className="landing-close-panel"><img src={media.kilimanjaro} alt="Mount Kilimanjaro and acacia tree in Tanzania" loading="lazy" /><div className="landing-close-overlay" /><div className="mic-container landing-close-content"><Reveal><p className="eyebrow">08 / MIC PULSE</p><h2 className="display display-md">Stay close to<br /><span>what&apos;s next.</span></h2><p className="section-lede">A clearer view of East Africa, delivered with intention.</p></Reveal></div></section>
     <Newsletter />
   </main>;
 }
