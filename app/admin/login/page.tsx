@@ -23,5 +23,5 @@ export default function AdminLogin() {
     }
   }
 
-  return <main className="admin-shell admin-centered"><form className="admin-card admin-form" onSubmit={submit}><p className="eyebrow">MIC PULSE</p><h1>Admin sign in</h1><p>Manage stories, opportunities and events from one command center.</p><label>Email<input type="email" required value={email} onChange={e => setEmail(e.target.value)} /></label><label>Password<input type="password" required value={password} onChange={e => setPassword(e.target.value)} /></label>{error && <p className="admin-error">{error}</p>}<button className="admin-button" disabled={busy}>{busy ? "Signing in…" : "Sign in"}</button></form></main>;
+  return <main className="admin-shell admin-centered"><form className="admin-card admin-form liquid-glass" onSubmit={submit}><p className="eyebrow">MIC PULSE</p><h1>Admin sign in</h1><p>Manage stories, opportunities and events from one command center.</p><label>Email<input type="email" required value={email} onChange={e => setEmail(e.target.value)} /></label><label>Password<input type="password" required value={password} onChange={e => setPassword(e.target.value)} /></label>{error && <p className="admin-error">{error}</p>}<button className="admin-button" disabled={busy}>{busy ? "Signing in…" : "Sign in"}</button></form></main>;
 }

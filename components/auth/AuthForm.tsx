@@ -5,7 +5,27 @@ import { FormEvent, useState } from "react";
 import { createClient } from "@/lib/supabase";
 
 export function AuthForm({ mode }: { mode: "login" | "signup" }) {
-  const signup = mode === "signup"; const [email, setEmail] = useState(""); const [password, setPassword] = useState(""); const [name, setName] = useState(""); const [busy, setBusy] = useState(false); const [message, setMessage] = useState(""); const [error, setError] = useState("");
-  async function submit(event: FormEvent) { event.preventDefault(); setBusy(true); setError(""); setMessage(""); try { const supabase = createClient(); const result = signup ? await supabase.auth.signUp({ email: email.trim(), password, options: { data: { full_name: name.trim() } } }) : await supabase.auth.signInWithPassword({ email: email.trim(), password }); if (result.error) throw result.error; if (signup && !result.data.session) { setMessage("Check your email to confirm your account, then sign in."); setBusy(false); return; } const next = new URLSearchParams(window.location.search).get("next"); const safeNext = next && next.startsWith("/") && !next.startsWith("//") && !next.startsWith("/admin") ? next : "/profile"; window.location.href = safeNext; } catch (cause) { setError(cause instanceof Error ? cause.message : "Authentication could not be completed."); setBusy(false); } }
-  return <main className="account-shell"><div className="account-auth-card"><p className="eyebrow">MIC PULSE / READER ACCOUNT</p><h1>{signup ? "Join the newsroom." : "Welcome back."}</h1><p className="section-lede">{signup ? "Save the stories and signals that matter to you." : "Sign in to continue your reading library."}</p><form className="account-form" onSubmit={submit}>{signup && <label>Name<input value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" /></label>}<label>Email<input type="email" required value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" /></label><label>Password<input type="password" required minLength={8} value={password} onChange={(event) => setPassword(event.target.value)} autoComplete={signup ? "new-password" : "current-password"} /></label>{error && <p className="form-error" role="alert">{error}</p>}{message && <p className="form-message" role="status">{message}</p>}<button className="primary-button" disabled={busy}>{busy ? "Working…" : signup ? "Create account" : "Sign in"}</button></form><p className="muted">{signup ? "Already have an account? " : "New to MIC Pulse? "}<Link className="text-link" href={signup ? "/login" : "/signup"}>{signup ? "Sign in" : "Create an account"}</Link></p></div></main>;
+  const signup = mode === "signup";
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+
+  async function submit(event: FormEvent) {
+    event.preventDefault(); setBusy(true); setError(""); setMessage("");
+    try {
+      const supabase = createClient();
+      const result = signup ? await supabase.auth.signUp({ email: email.trim(), password, options: { data: { full_name: name.trim() } } }) : await supabase.auth.signInWithPassword({ email: email.trim(), password });
+      if (result.error) throw result.error;
+      if (signup && !result.data.session) { setMessage("Check your email to confirm your account, then sign in."); setBusy(false); return; }
+      const next = new URLSearchParams(window.location.search).get("next");
+      const safeNext = next && next.startsWith("/") && !next.startsWith("//") && !next.startsWith("/admin") ? next : "/profile";
+      window.location.href = safeNext;
+    } catch (cause) { setError(cause instanceof Error ? cause.message : "Authentication could not be completed."); setBusy(false); }
+  }
+
+  return <main className="account-shell"><div className="account-auth-card liquid-glass"><p className="eyebrow">MIC PULSE / READER ACCOUNT</p><h1>{signup ? "Join the newsroom." : "Welcome back."}</h1><p className="section-lede">{signup ? "Save the stories and signals that matter to you." : "Sign in to continue your reading library."}</p><form className="account-form" onSubmit={submit}>{signup && <label>Name<input value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" /></label>}<label>Email<input type="email" required value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" /></label><label>Password<div className="password-field"><input type={showPassword ? "text" : "password"} required minLength={8} value={password} onChange={(event) => setPassword(event.target.value)} autoComplete={signup ? "new-password" : "current-password"} /><button type="button" className="password-toggle" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? "Hide" : "Show"}</button></div></label>{error && <p className="form-error" role="alert">{error}</p>}{message && <p className="form-message" role="status">{message}</p>}<button className="primary-button" disabled={busy}>{busy ? "Working…" : signup ? "Create account" : "Sign in"}</button></form><p className="muted">{signup ? "Already have an account? " : "New to MIC Pulse? "}<Link className="text-link" href={signup ? "/login" : "/signup"}>{signup ? "Sign in" : "Create an account"}</Link></p></div></main>;
 }

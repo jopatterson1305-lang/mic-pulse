@@ -8,7 +8,13 @@ export async function proxy(request: NextRequest) {
   const readerProtected = pathname.startsWith("/profile");
   if (!adminProtected && !readerProtected) return NextResponse.next();
   const config = getSupabaseConfig();
-  if (!config) return NextResponse.next();
+  if (!config) {
+    const loginUrl = request.nextUrl.clone();
+    loginUrl.pathname = adminProtected ? "/admin/login" : "/login";
+    loginUrl.search = "";
+    loginUrl.searchParams.set("next", `${pathname}${request.nextUrl.search}`);
+    return NextResponse.redirect(loginUrl);
+  }
   let response = NextResponse.next({ request });
   const supabase = createServerClient(config.url, config.key, {
     cookies: {
