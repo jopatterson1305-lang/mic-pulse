@@ -12,7 +12,7 @@ export async function MarketPulse() {
   const signals = (data ?? []) as MarketUpdate[];
   return <section className="section section-dark" id="market-pulse">
     <div className="mic-container">
-      <Reveal><p className="eyebrow">03 / MARKET PULSE</p><h2 className="display display-md">Know the signal<br /><span>before the noise.</span></h2><p className="section-lede">Sourced market context for people making consequential moves across East Africa.</p></Reveal>
+      <Reveal><p className="eyebrow">MARKETS</p><h2 className="display display-md">Read the shift<br /><span>before the noise.</span></h2><p className="section-lede">Sourced market context for people making consequential moves across East Africa.</p></Reveal>
       <div className="signal-grid">{signals.length ? signals.map(signal => <Reveal key={signal.id} className="signal-card"><div><span className="signal-name">{signal.metric ?? "MARKET UPDATE"}</span><p>{signal.title}</p></div><div className="signal-value"><strong>{signal.value ?? "—"}{signal.change_percentage != null ? ` (${signal.change_percentage}%)` : ""}</strong>{signal.slug && <Link className="text-link" href={`/pages/${signal.slug}`}>Read update ↗</Link>}</div></Reveal>) : <Reveal className="empty-state"><h3>The next sourced update is being prepared.</h3><p>Browse the published archive while the editorial desk prepares the next market context.</p><Link className="text-link" href="/articles">Open the archive ↗</Link></Reveal>}</div>
     </div>
   </section>;

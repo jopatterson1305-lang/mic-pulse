@@ -3,7 +3,7 @@ import Link from "next/link";
 const columns = [
   { title: "Explore", links: [["Business", "/business"], ["Technology", "/technology"], ["Markets", "/finance"], ["Startups", "/startups"]] },
   { title: "Network", links: [["Companies", "/companies"], ["Founders", "/founders"], ["Opportunities", "/opportunities"], ["Events", "/events"], ["About MIC", "/about"]] },
-  { title: "Reader", links: [["Newsletter", "/#newsletter"], ["Sign in", "/login"], ["Profile", "/profile"], ["Search", "/search"]] },
+  { title: "Reader", links: [["Newsletter", "/#newsletter"], ["Sign in", "/login"], ["Create account", "/signup"], ["Saved content", "/profile/saved"], ["Profile", "/profile"], ["Search", "/search"]] },
 ];
 
 export function Footer() {
